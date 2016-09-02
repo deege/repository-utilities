@@ -20,11 +20,11 @@
   
     <distributionManagement>
         <repository>
-            <id>nso-ops-releases</id>
-            <url>http://ec2-52-42-162-65.us-west-2.compute.amazonaws.com:8081/nexus/content/repositories/releases</url>
+            <id>releases</id>
+            <url>http://nexus-deege.rhcloud.com/nexus/content/repositories/releases</url>
         </repository>
     </distributionManagement>
-  
+
     <properties>
         <project.version>SNAPSHOT</project.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -36,7 +36,7 @@
         <build.number>${build.unknown}</build.number>
         <build.revision>${git.commit.id.describe-short}</build.revision>
         <junit.version>3.8.1</junit.version>
-        <mainClass>edu.nso.dkistdc.utils.RepositoryUtils</mainClass>
+        <mainClass>com.deegeu.utilities.git.RepositoryUtils</mainClass>
     </properties>
   
     <build>
