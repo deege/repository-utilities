@@ -6,14 +6,15 @@ The purpose of this repository is to provide a library to report Git Repository 
 
 The mvn POM file requires two parameters passed.
 
-'''mvn clean install -Dproject.version=1.0.0 -Dbuild.number=$BUILD_NUMBER.$GIT_COMMIT
-'''
+```
+mvn clean install -Dproject.version=1.0.0 -Dbuild.number=$BUILD_NUMBER.$GIT_COMMIT
+```
 
 ## Getting started
 
 Add the most recent JAR to your project. To load the properties, use the following code.
 
-'''/***
+```/***
      * Gets the repository state for this artifact.
      * @return
      * @throws IOException
@@ -26,13 +27,13 @@ Add the most recent JAR to your project. To load the properties, use the followi
        }
        return this.gitRepositoryState;
     }
-    '''
+```
 
 This code assumes [the git-commit-id-plugin](https://github.com/ktoso/maven-git-commit-id-plugin) is added to your Maven POM.    
 
 The plugin is configured as follows:
 
-'''<plugin>
+```<plugin>
       <groupId>pl.project13.maven</groupId>
       <artifactId>git-commit-id-plugin</artifactId>
       <version>2.2.1</version>
@@ -73,7 +74,7 @@ The plugin is configured as follows:
           </gitDescribe>
       </configuration>
   </plugin>
-  '''
+```
 
 ## Contributions
 
