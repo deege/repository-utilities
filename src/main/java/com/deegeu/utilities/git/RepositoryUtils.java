@@ -10,25 +10,23 @@ import java.util.Properties;
  */
 public class RepositoryUtils {
     
-    private GitRepositoryState gitRepositoryState;
+    static private GitRepositoryState gitRepositoryState;
     
     /***
      * Main application that returns the version information.
      * @param args 
      */
     public static void main( String[] args ) {
-        
-        RepositoryUtils app = new RepositoryUtils();
         try {
-            app.getGitRepositoryState();
+            getGitRepositoryState();
         } catch (IOException ioe) {
             System.out.println("Could not get repository state : " + ioe);
             System.exit(-1);
         }
         
         System.out.println( "RepositoryUtils version " 
-                +  app.gitRepositoryState.getBuildVersion()
-                + " Git SHA "+ app.gitRepositoryState.getCommitIdAbbrev());
+                +  gitRepositoryState.getBuildVersion()
+                + " Git SHA "+ gitRepositoryState.getCommitIdAbbrev());
     }
     
     /***
@@ -36,12 +34,12 @@ public class RepositoryUtils {
      * @return
      * @throws IOException 
      */
-    private GitRepositoryState getGitRepositoryState() throws IOException {
-       if (this.gitRepositoryState == null) {
+    static public GitRepositoryState getGitRepositoryState() throws IOException {
+       if (RepositoryUtils.gitRepositoryState == null) {
           Properties properties = new Properties();
-          properties.load(getClass().getClassLoader().getResourceAsStream("git.properties"));
-          this.gitRepositoryState = new GitRepositoryState(properties);
+          properties.load(RepositoryUtils.class.getClassLoader().getResourceAsStream("git.properties"));
+          RepositoryUtils.gitRepositoryState = new GitRepositoryState(properties);
        }
-       return this.gitRepositoryState;
+       return RepositoryUtils.gitRepositoryState;
     }
 }
