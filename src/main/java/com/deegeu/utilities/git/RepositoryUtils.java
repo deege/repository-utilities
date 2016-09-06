@@ -9,37 +9,44 @@ import java.util.Properties;
  *
  */
 public class RepositoryUtils {
-    
+
     static private GitRepositoryState gitRepositoryState;
-    
-    /***
+
+    /**
+     * *
      * Main application that returns the version information.
-     * @param args 
+     *
+     * @param args
      */
-    public static void main( String[] args ) {
-        try {
-            getGitRepositoryState();
-        } catch (IOException ioe) {
-            System.out.println("Could not get repository state : " + ioe);
+    public static void main(String[] args) {
+        getGitRepositoryState();
+
+        if (gitRepositoryState != null) {
+            System.out.println("RepositoryUtils version "
+                    + gitRepositoryState.getBuildVersion()
+                    + " Git SHA " + gitRepositoryState.getCommitIdAbbrev());
+        } else {
+            System.out.println("Could not get repository state.");
             System.exit(-1);
         }
-        
-        System.out.println( "RepositoryUtils version " 
-                +  gitRepositoryState.getBuildVersion()
-                + " Git SHA "+ gitRepositoryState.getCommitIdAbbrev());
     }
-    
-    /***
+
+    /**
+     * *
      * Gets the repository state for this artifact.
+     *
      * @return
-     * @throws IOException 
      */
-    static public GitRepositoryState getGitRepositoryState() throws IOException {
-       if (RepositoryUtils.gitRepositoryState == null) {
-          Properties properties = new Properties();
-          properties.load(RepositoryUtils.class.getClassLoader().getResourceAsStream("git.properties"));
-          RepositoryUtils.gitRepositoryState = new GitRepositoryState(properties);
-       }
-       return RepositoryUtils.gitRepositoryState;
+    static public GitRepositoryState getGitRepositoryState() {
+        if (RepositoryUtils.gitRepositoryState == null) {
+            try {
+                Properties properties = new Properties();
+                properties.load(RepositoryUtils.class.getClassLoader().getResourceAsStream("git.properties"));
+                RepositoryUtils.gitRepositoryState = new GitRepositoryState(properties);
+            } catch (IOException ioe) {
+                System.out.println("Could not get repository state : " + ioe);
+            }
+        }
+        return RepositoryUtils.gitRepositoryState;
     }
 }
