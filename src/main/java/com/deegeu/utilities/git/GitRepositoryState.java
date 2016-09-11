@@ -336,5 +336,14 @@ public class GitRepositoryState {
         this.buildVersion = buildVersion;
     }
     
+    /**
+     * Returns just the major and minor version
+     * @return 
+     */
+    public String getMajorMinorVersion() {
+        int indexOfSeparator = this.buildVersion.indexOf('.');
+        indexOfSeparator = this.buildVersion.lastIndexOf('.', indexOfSeparator);
+        return this.buildVersion.substring(0, indexOfSeparator);
+    }
     
 }
